@@ -5,17 +5,15 @@
  */
 package javaapplication1;
 import java.util.Scanner;
-import java.util.Random;
 /**
  *
  * @author EAG
  */
 public class JavaApplication1 {
-
     /**
      * @param args the command line arguments
      */
-    public static boolean main(String[] args) {
+    public static void main(String[] args) {
         // TODO code application logic here
         /*
         Scanner sc = new Scanner(System.in);
@@ -61,10 +59,10 @@ public class JavaApplication1 {
                     break;                  
         }    */  
         
-        Scanner teclado = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int opcion;
         System.out.println("Cual es tu nombre?");
-        String nombre = teclado.nextLine();
+        String nombre = sc.nextLine();
         System.out.println("Suerte, " + nombre);
         boolean levelOne = false;
         boolean perdido = false;
@@ -81,13 +79,13 @@ public class JavaApplication1 {
             System.out.println("");
             System.out.println("0.-Para salir");
             System.out.println("Elija opcion");
-            opcion = teclado.nextInt();
+            opcion = sc.nextInt();
             switch (opcion) {
-                case 1:
+                case 1 -> {
                     System.out.println("1.-Para nivel principiante (8 × 8 casillas y 10 minas)");
                     System.out.println("2.-Para nivel intermedio (16 × 16 casillas y 40 minas)");
                     System.out.println("3.-Para nivel experto (16 x 30 casillas y 99 minas)");
-                    int x = teclado.nextInt();
+                    int x = sc.nextInt();
                     if (x == 1) {
                         matriz = new char[8][8];
                         matrizMinas = new char[8][8];
@@ -109,30 +107,28 @@ public class JavaApplication1 {
                     }
 
                     levelOne = true;
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     if (levelOne == false) {
                         System.out.println("Debes eligir la difilcutad primero, saliendo...");
-                        break;
                     } else {
-                            for (int i = 0; i < matriz.length; i++) {
-                                for (int j = 0; j < matriz[0].length; j++) {
-
-                                    matriz[i][j] = '-';
-                                }
+                        for (int i = 0; i < matriz.length; i++) {
+                            for (int j = 0; j < matriz[0].length; j++) {
+                                
+                                matriz[i][j] = '-';
                             }
-                            for (int i = 0; i < matrizMinas.length; i++) {
-                                for (int j = 0; j < matrizMinas[0].length; j++) {
-
-                                    matriz[i][j] = '-';
-                                }
+                        }
+                        for (int i = 0; i < matrizMinas.length; i++) {
+                            for (int j = 0; j < matrizMinas[0].length; j++) {
+                                
+                                matriz[i][j] = '-';
                             }
-                        break;
+                        }
                     }
-                case 3:
+                }
+                case 3 -> {
                     if (levelOne == false) {
                         System.out.println("Debes eligir la difilcutad primero, saliendo...");
-                        break;
                     } else {
                         for (int i = 0; i < matriz.length; i++) {
                             for (int j = 0; j < matriz[0].length; j++) {
@@ -141,7 +137,7 @@ public class JavaApplication1 {
                                         System.out.print("| " + matriz[i][j]);
                                     }
                                     if (j == matriz.length - 1) {
-                                    System.out.print(matriz[i][j] + " |");
+                                        System.out.print(matriz[i][j] + " |");
                                     }
                                 } else {
                                     System.out.print(" " + matriz[i][j] + " ");
@@ -149,33 +145,60 @@ public class JavaApplication1 {
                             }
                             System.out.println("");
                         }
-                        break;
                     }
-                case 4:
+                }
+                case 4 -> {
                     int randomX = 0,
-                     randomY = 0; //declaramos 2 variables que la maquina rellenará con el math random, de esta forma conseguimos rellenar el trablero de minas
-                    generarMinas(randomX, randomY, matrizMinas, numeroMinas);
-                    break;
-                case 5:
+                    randomY = 0; //declaramos 2 variables que la maquina rellenará con el math random, de esta forma conseguimos rellenar el trablero de minas                    
+                    boolean unaVez;
+                    do {
+                        for (int i = 0; i < matriz.length && numeroMinas > 0; i++) {
+                            unaVez = false;
+                            for (int j = 0; j < matriz[0].length && numeroMinas > 0; j++) {
+
+                                    if (unaVez == false) {
+                                        matriz[i][(int) (Math.random() * matriz[0].length)] = '@';
+                                        numeroMinas--;
+                                    }
+                                unaVez = true;
+                            }
+                        }
+                    } while (numeroMinas > 0);
+                }
+                case 5 -> {
                     if (levelOne == false) {
                         System.out.println("Debes eligir la difilcutad primero, saliendo...");
-                        break;
                     } else {
-                        imprimirTablero(matrizMinas);
+                        for (int i = 0; i < matrizMinas.length; i++) {
+                            for (int j = 0; j < matrizMinas[0].length; j++) {
 
-                        break;
+                                if (j == 0 || j == matrizMinas.length - 1) {
+                                    if (j == 0) {
+                                        System.out.print("| " + matrizMinas[i][j]);
+
+                                    }
+                                    if (j == matrizMinas.length - 1) {
+                                        System.out.print(matrizMinas[i][j] + " |");
+                                    }
+                                } else {
+                                    System.out.print(" " + matrizMinas[i][j] + " ");
+                                }
+                            }
+                            System.out.println("");
+                        }
                     }
-                case 6:
+                }
+                case 6 -> {
                     int cordX,
-                     cordY;
+                            cordY;
                     if (levelOne == false) {
                         System.out.println("Debes eligir la difilcutad primero, saliendo...");
                         break;
                     } else {
                         System.out.println("En que fila?");
-                        cordX = teclado.nextInt();
+                        cordX = sc.nextInt();
                         System.out.println("En que columna?");
-                        cordY = teclado.nextInt();
+                        cordY = sc.nextInt();
                         
                         if (matriz[cordX][cordY] == '#' || matrizMinas[cordX][cordY] == '@') {
                             if (matrizMinas[cordX][cordY] == '@') {
@@ -184,50 +207,190 @@ public class JavaApplication1 {
                                 return perdido;
                             }
                             if (matriz[cordX][cordY] == '#') {
-                            System.out.println("Ya introduciste en esa casilla");
+                                System.out.println("Ya introduciste en esa casilla");
                             }
                         } else {
                             matriz[cordX][cordY] = '#';
                             System.out.println("No hay bomba, ahora se escribe");
                         }
-                    return perdido;
+                        return perdido;
                     }
+                    if (perdido == true) {
+                        System.out.println("Perdiste la partida.");
+                        opcion = 0;
+                    } else {
+                        int contA1 = 0;
 
-                        if (perdido == true) {
-                            System.out.println("Perdiste la partida.");
-                            opcion = 0;
-                        } else {
-                            comprobarCercaniaMinas(cordX, cordY, matriz, matrizMinas);
-                            
-                            for (int i = 0; i < matriz.length; i++) {
-                                for (int j = 0; j < matriz[0].length; j++) {
-                                    if (j == 0 || j == matriz.length - 1) {
-                                        if (j == 0) {
-                                            System.out.print("| " + matriz[i][j]);
-                                        }
-                                        if (j == matriz.length - 1) {
-                                            System.out.print(matriz[i][j] + " |");
+                        for (int i = 0; i < matriz.length; i++) {
+                            for (int j = 0; j < matriz[0].length; j++) {
+
+                                if (i == cordX - 1 && j == cordY - 1) { // A1
+                                    if (matrizMinas[i - 1][j - 1] == '@') { // 1
+                                        contA1++;
+                                    } else {
+                                    }
+                                } else {
+
+                                }
+                                if (matrizMinas[i - 1][j] >= 0 || matrizMinas[i - 1][j] <= matrizMinas.length) {
+                                    if (matrizMinas[i - 1][j] == '@') { // 1
+                                        contA1++;
+                                    }
+                                } else {
+
+                                }
+                                if (matrizMinas[i - 1][j + 1] >= 0 || matrizMinas[i - 1][j + 1] <= matrizMinas.length) {
+                                    if (matrizMinas[i - 1][j + 1] == '@') { // 1
+                                        contA1++;
+                                        if (matrizMinas[i - 1][j - 1] >= 0 || matrizMinas[i - 1][j - 1] <= matrizMinas.length) {
                                         }
                                     } else {
-                                        System.out.print(" " + matriz[i][j] + " ");
+
                                     }
+                                    ////////////////////////////////////////////
+                                    if (matrizMinas[i][j - 1] >= 0 || matrizMinas[i][j - 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i][j - 1] == '@') { // 2
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i][j] >= 0 || matrizMinas[i][j] <= matrizMinas.length) {
+                                        if (matrizMinas[i][j] == '@') { // 2
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i][j + 1] >= 0 || matrizMinas[i][j + 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i][j + 1] == '@') { // 2
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    ////////////////////////////////////////////
+                                    if (matrizMinas[i + 1][j - 1] >= 0 || matrizMinas[i + 1][j - 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i + 1][j - 1] == '@') { // 3
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i + 1][j] >= 0 || matrizMinas[i + 1][j] <= matrizMinas.length) {
+                                        if (matrizMinas[i + 1][j] == '@') { // 3
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i + 1][j + 1] >= 0 || matrizMinas[i + 1][j + 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i + 1][j + 1] == '@') { // 3
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    //Transformacion ASCII llamada metodo , dentro de un metodo...
+                                    matriz[cordX - 1][cordY - 1] = (char) transformacionAscii(contA1);
                                 }
-                                System.out.println("");
+                                ///////////////////////////////////////////////////////////////////////////////////////
+                                contA1 = 0; //reiniciamos contador...
+                                if (i == cordX - 1 && j == cordY) { // B1
+                                    if (matrizMinas[i - 1][j - 1] >= 0 || matrizMinas[i - 1][j - 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i - 1][j - 1] == '@') { // 1
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i - 1][j] >= 0 || matrizMinas[i - 1][j] <= matrizMinas.length) {
+                                        if (matrizMinas[i - 1][j] == '@') { // 1
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i - 1][j + 1] >= 0 || matrizMinas[i - 1][j + 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i - 1][j + 1] == '@') { // 1
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    ////////////////////////////////////////////
+                                    if (matrizMinas[i][j - 1] >= 0 || matrizMinas[i][j - 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i][j - 1] == '@') { // 2
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i][j] >= 0 || matrizMinas[i][j] <= matrizMinas.length) {
+                                        if (matrizMinas[i][j] == '@') { // 2
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i][j + 1] >= 0 || matrizMinas[i][j + 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i][j + 1] == '@') { // 2
+                                            contA1++;
+                                        }
+                                    } else {
+                                    }
+                                    ////////////////////////////////////////////
+                                    if (matrizMinas[i + 1][j - 1] >= 0 || matrizMinas[i + 1][j - 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i + 1][j - 1] == '@') { // 3
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i + 1][j] >= 0 || matrizMinas[i + 1][j] <= matrizMinas.length) {
+                                        if (matrizMinas[i + 1][j] == '@') { // 3
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                    if (matrizMinas[i + 1][j + 1] >= 0 || matrizMinas[i + 1][j + 1] <= matrizMinas.length) {
+                                        if (matrizMinas[i + 1][j + 1] == '@') { // 3
+                                            contA1++;
+                                        }
+                                    } else {
+
+                                    }
+                                        //Transformacion ASCII llamada metodo , dentro de un metodo...
+                                        matriz[cordX - 1][cordY] = (char) transformacionAscii(contA1);
+
+                                }
+
                             }
                         }
-                        break;
+                        
+                        for (int i = 0; i < matriz.length; i++) {
+                            for (int j = 0; j < matriz[0].length; j++) {
+                                if (j == 0 || j == matriz.length - 1) {
+                                    if (j == 0) {
+                                        System.out.print("| " + matriz[i][j]);
+                                    }
+                                    if (j == matriz.length - 1) {
+                                        System.out.print(matriz[i][j] + " |");
+                                    }
+                                } else {
+                                    System.out.print(" " + matriz[i][j] + " ");
+                                }
+                            }
+                            System.out.println("");
+                        }
                     }
-
+                }
             }
-            
         } while (opcion != 0);
+            
         
-        
-        
-        
-        
-    }
-    
+    }   
 }
 
     
