@@ -13,7 +13,7 @@ public class JavaApplication1 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static boolean main(String[] args) {
         // TODO code application logic here
         /*
         Scanner sc = new Scanner(System.in);
@@ -361,9 +361,9 @@ public class JavaApplication1 {
                                     } else {
 
                                     }
-                                        //Transformacion ASCII llamada metodo , dentro de un metodo...
-                                        matriz[cordX - 1][cordY] = (char) transformacionAscii(contA1);
-
+                                    //Transformacion ASCII llamada metodo , dentro de un metodo...
+                                    matriz[cordX - 1][cordY] = (char) transformacionAscii(contA1);
+                                    
                                 }
 
                             }
